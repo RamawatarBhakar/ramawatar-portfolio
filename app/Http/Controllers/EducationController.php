@@ -56,6 +56,6 @@ class EducationController extends Controller
 
         Education::create($validated);
 
-        return redirect()->route('dashboard')->with('success', 'Education added successfully!');
+        return redirect("/education")->with('success', 'Education added successfully!');
     }
 }

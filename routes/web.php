@@ -24,7 +24,8 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 //process submited login details
 Route::post('/login', [AuthController::class, 'login']);
 
-//resume
+//contact
+Route::post('contact', [ResumeController::class, 'sendMessage'])->name('contact.send');
 
 
 
@@ -75,10 +76,11 @@ Route::middleware('auth')->group(function () {
 
 
     //project
-    Route::get('project', [ProjectController::class, 'show']);
+    Route::get('/project', [ProjectController::class, 'show']);
     Route::view('/projectForm', 'Forms.projectForm')->middleware('auth');
     Route::post('/project', [ProjectController::class, 'project'])->name('projects.store');
     Route::get('/projectEdit/{id}', [ProjectController::class, 'edit'])->name('projectEdit');
     Route::post('/projectUpdate', [ProjectController::class, 'update']);
-    Route::get('/deleteProject/{id})', [EducationController::class, 'delete'])->name('deleteProject');
+    Route::get('/deleteProject/{id}', [ProjectController::class, 'delete'])->name('deleteProject');
 });
+

@@ -4,26 +4,51 @@
     <div class="grid md:grid-cols-3 gap-8">
 
         @foreach($projects as $project)
-        <div class="bg-gray-900 rounded shadow-lg overflow-hidden">
+        <div class="bg-gray-900 rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
 
-            <img src="{{ asset('storage/' . $project->image_path) }}"
-                class="h-56 w-full object-cover">
+        
+            <div class="relative overflow-hidden">
+                <img src="{{ asset('storage/' . $project->image_path) }}"
+                    class="h-56 w-full object-cover group-hover:scale-110 transition duration-500">
 
-            <div class="p-4">
-                <h4 class="text-xl font-bold">{{ $project->title }}</h4>
+          
+                <div class="absolute inset-0 bg-black/30"></div>
+            </div>
 
-                <p class="text-gray-400 text-sm">
+          
+            <div class="p-5 space-y-3">
+
+                <h4 class="text-xl font-bold text-white">
+                    {{ $project->title }}
+                </h4>
+
+                <p class="text-blue-400 text-sm font-medium">
                     {{ $project->tech_stack }}
                 </p>
 
-                <p class="text-gray-500 text-sm mt-2">
+                <p class="text-gray-400 text-sm leading-relaxed">
                     {{ $project->description }}
                 </p>
 
-                <div class="mt-3 flex gap-2">
-                    <a href="{{ $project->github_link }}" class="text-blue-400">GitHub</a>
-                    <a href="{{ $project->live_link }}" class="text-green-400">Live</a>
+             
+                <div class="mt-4 flex gap-3">
+
+                    @if($project->github_link)
+                    <a href="{{ $project->github_link }}" target="_blank"
+                        class="px-4 py-1 text-sm bg-gray-700 rounded-lg hover:bg-gray-600 transition">
+                        GitHub
+                    </a>
+                    @endif
+
+                    @if($project->live_link)
+                    <a href="{{ $project->live_link }}" target="_blank"
+                        class="px-4 py-1 text-sm bg-blue-500 rounded-lg hover:bg-blue-600 transition">
+                        Live
+                    </a>
+                    @endif
+
                 </div>
+
             </div>
 
         </div>

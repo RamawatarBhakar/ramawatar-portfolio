@@ -15,26 +15,29 @@ class ExperienceController extends Controller
 
     function edit($id)
     {
-        return view('Forms.infoEdit', ['data' => Experience::findOrFail($id)]);
+        return view('Forms.experienceEdit', ['data' => Experience::findOrFail($id)]);
     }
 
-    function update(Request $req)
+    public function update(Request $req)
     {
         $req->validate([
             'job_title' => 'required|string|max:255',
             'company' => 'required|string|max:255',
             'start_date' => 'required|string|max:255',
             'end_date' => 'nullable|string|max:255',
-            'is_current' => 'required|boolean',
+            'is_current' => 'nullable|boolean',
             'description' => 'required|string'
         ]);
+
+        // checkbox handle
+        $is_current = $req->has('is_current') ? 1 : 0;
 
         Experience::where('id', $req->id)->update([
             'job_title' => $req->job_title,
             'company' => $req->company,
             'start_date' => $req->start_date,
             'end_date' => $req->end_date,
-            'is_current' => $req->is_current,
+            'is_current' => $is_current,
             'description' => $req->description
         ]);
 
@@ -43,7 +46,7 @@ class ExperienceController extends Controller
     function delete($id)
     {
         Experience::destroy($id);
-        return redirect('/Experience')->with('success', 'Skill deleted Successfully!');
+        return redirect('/experience')->with('success', 'Skill deleted Successfully!');
     }
 
     function store(Request $req)
@@ -57,8 +60,9 @@ class ExperienceController extends Controller
             'description' => 'required|string',
         ]);
 
-        Experience::create($validated);
-
-        return redirect()->route('dashboard')->with('success', 'Experience added successfully!');
+        if (Experience::create($validated)) {
+            return redirect('/experience')->with('success', 'Experience added successfully!');
+        }
+        return redirect('/experience')->with('success', 'Experience not added!');
     }
 }

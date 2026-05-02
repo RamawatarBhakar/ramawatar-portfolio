@@ -24,31 +24,45 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'tech_stack' => 'required|string|max:255',
             'description' => 'required|string',
-            'image_path' => 'nullable|string|max:255',
+            'image_path' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
             'github_link' => 'nullable|string|max:255',
             'live_link' => 'nullable|string|max:255'
         ]);
 
-        Project::where('id', $req->id)->update([
-            'title' => $req->title,
-            'tech_stack' => $req->tech_stack,
-            'description' => $req->description,
-            'image_path' => $req->image_path,
-            'github_link' => $req->github_link,
-            'live_link' => $req->live_link
-        ]);
+        $project = Project::find($req->id);
+
+
+        if ($req->hasFile('image_path')) {
+            $path = $req->file('image_path')->store('projects', 'public');
+            $project->image_path = $path;
+        }
+
+        $project->title = $req->title;
+        $project->tech_stack = $req->tech_stack;
+        $project->description = $req->description;
+        $project->github_link = $req->github_link;
+        $project->live_link = $req->live_link;
+
+        $project->save();
 
         return redirect('/project')->with('success', 'Project Updated Successfully!');
     }
+
+    function delete($id)
+    {
+        Project::destroy($id);
+        return redirect('/project')->with('success', 'info deleted Successfully!');
+    }
+
     function project(Request $req)
     {
         $validated =  $req->validate(['title' => 'required', 'tech_stack' => 'required', 'description' => 'required']);
 
         $validated['image_path'] = $req->file('image_path')->store('projects', 'public');
         if (Project::create($validated)) {
-            return redirect()->route('dashboard')->with('success', 'project save!');
+            return redirect('/project')->with('success', 'project save!');
         }
 
-        return redirect()->route('dashboard')->with('success', 'project not save!');
+        return redirect("/project")->with('success', 'project not save!');
     }
 }

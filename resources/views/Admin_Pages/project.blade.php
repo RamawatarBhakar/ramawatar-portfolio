@@ -3,8 +3,9 @@
 @section('title', 'Manage Project Details')
 
 @section('content')
-
-<h3>{{ session('success') }}</h3>
+@if(session('success'))
+<p class="text-green-400 text-center">{{ session('success') }}</p>
+@endif
 
 <table border="1" cellpadding="10">
     <tr>

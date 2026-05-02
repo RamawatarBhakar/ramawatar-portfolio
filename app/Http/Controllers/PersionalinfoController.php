@@ -17,6 +17,8 @@ class PersionalinfoController extends Controller
         return view('Forms.infoEdit', ['data' => personal_info::findOrFail($id)]);
     }
 
+
+
     function update(Request $req)
     {
         $req->validate([
@@ -28,15 +30,11 @@ class PersionalinfoController extends Controller
             'about_me' => 'required|string',
             'github_url' => 'nullable|string|max:255',
             'linkedin_url' => 'nullable|string|max:255',
-            'profile_image' => 'nullable|string|max:255'
+            'profile_image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ]);
-
-        function delete($id)
-        {
-            Personal_info::destroy($id);
-            return redirect('/info')->with('success', 'info deleted Successfully!');
+        if ($req->hasFile('profile_image')) {
+            $path = $req->file('profile_image')->store('profile', 'public');
         }
-
         Personal_info::where('id', $req->id)->update([
             'name' => $req->name,
             'tagline' => $req->tagline,
@@ -46,11 +44,18 @@ class PersionalinfoController extends Controller
             'about_me' => $req->about_me,
             'github_url' => $req->github_url,
             'linkedin_url' => $req->linkedin_url,
-            'profile_image' => $req->profile_image
+            'profile_image' => $path
         ]);
 
         return redirect('/info')->with('success', 'Personal Info Updated Successfully!');
     }
+
+    function delete($id)
+    {
+        Personal_info::destroy($id);
+        return redirect('/info')->with('success', 'info deleted Successfully!');
+    }
+
 
     public function store(Request $request)
     {

@@ -1,58 +1,94 @@
 @extends('Admin_Pages.admin')
 
-@section('title' , 'Manage Persional info')
+@section('title', 'Manage Personal Info')
 
 @section('content')
 
-<form action="{{ route('personal_info.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
+<div class="d-flex justify-content-center">
 
-    <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
+    <div class="card shadow-lg border-0" style="width: 100%; max-width: 700px;">
+
+        <div class="card-body p-4">
+
+            <h3 class="mb-4">Add Personal Info</h3>
+
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+                @endforeach
+            </div>
+            @endif
+
+            <form action="{{ route('personal_info.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Tagline</label>
+                    <input type="text" name="tagline" class="form-control" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" name="phone" class="form-control" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input type="text" name="location" class="form-control">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">About</label>
+                    <textarea name="about_me" class="form-control" rows="4"></textarea>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">GitHub URL</label>
+                    <input type="url" name="github_url" class="form-control">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">LinkedIn URL</label>
+                    <input type="url" name="linkedin_url" class="form-control">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Profile Image</label>
+                    <input type="file" name="profile_image" class="form-control">
+                </div>
+
+
+                <button class="btn btn-primary w-100">
+                    Save Personal Info
+                </button>
+
+            </form>
+
+        </div>
+
     </div>
 
-    <div>
-        <label for="tagline">Tagline</label>
-        <input type="text" name="tagline" id="tagline" required>
-    </div>
-
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>
-    </div>
-
-    <div>
-        <label for="phone">Phone</label>
-        <input type="text" name="phone" id="phone" required>
-    </div>
-
-    <div>
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location">
-    </div>
-
-    <div>
-        <label for="about_me">About Me</label>
-        <textarea name="about_me" id="about_me" required></textarea>
-    </div>
-
-    <div>
-        <label for="github_url">GitHub URL</label>
-        <input type="url" name="github_url" id="github_url">
-    </div>
-
-    <div>
-        <label for="linkedin_url">LinkedIn URL</label>
-        <input type="url" name="linkedin_url" id="linkedin_url">
-    </div>
-
-    <div>
-        <label for="profile_image">Profile Image</label>
-        <input type="file" name="profile_image" id="profile_image" accept="image/*">
-    </div>
-
-    <button type="submit">Save Personal Info</button>
-</form>
+</div>
 
 @endsection
