@@ -32,10 +32,9 @@ class PersionalinfoController extends Controller
             'linkedin_url' => 'nullable|string|max:255',
             'profile_image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ]);
-        if ($req->hasFile('profile_image')) {
-            $path = $req->file('profile_image')->store('profile', 'public');
-        }
-        Personal_info::where('id', $req->id)->update([
+
+        // 1. Pehle basic data ka array bana lo (bina image ke)
+        $updateData = [
             'name' => $req->name,
             'tagline' => $req->tagline,
             'email' => $req->email,
@@ -44,8 +43,15 @@ class PersionalinfoController extends Controller
             'about_me' => $req->about_me,
             'github_url' => $req->github_url,
             'linkedin_url' => $req->linkedin_url,
-            'profile_image' => $path
-        ]);
+        ];
+
+        // 2. Agar nayi image aayi hai, toh use save karo aur array me add kar do
+        if ($req->hasFile('profile_image')) {
+            $updateData['profile_image'] = $req->file('profile_image')->store('profile', 'public');
+        }
+
+        // 3. Ab final data database me update kar do
+        Personal_info::where('id', $req->id)->update($updateData);
 
         return redirect('/info')->with('success', 'Personal Info Updated Successfully!');
     }

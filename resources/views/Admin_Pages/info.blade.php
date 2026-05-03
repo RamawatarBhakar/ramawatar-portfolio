@@ -4,82 +4,119 @@
 
 @section('content')
 
-<h3>{{ session('success') }}</h3>
+<div class="container-fluid">
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>Name</th>
-        <th>Tagline</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Location</th>
-        <th>About Me</th>
-        <th>GitHub URL</th>
-        <th>LinkedIn URL</th>
-        <th>Profile Image</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Personal Info</h4>
 
-    @foreach($data as $i)
-    <tr>
-        <td>{{ $i->name }}</td>
-        <td>{{ $i->tagline }}</td>
-        <td>{{ $i->email }}</td>
-        <td>{{ $i->phone }}</td>
-        <td>{{ $i->location }}</td>
-        <td>{{ $i->about_me }}</td>
+        <a href="/infoForm" class="btn btn-primary">
+            + Add New
+        </a>
+    </div>
 
-        <td>
-            @if($i->github_url)
-            <a href="{{ $i->github_url }}" target="_blank">
-                GitHub
-            </a>
-            @else
-            N/A
-            @endif
-        </td>
+    <!-- Success Message -->
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
-        <td>
-            @if($i->linkedin_url)
-            <a href="{{ $i->linkedin_url }}" target="_blank">
-                LinkedIn
-            </a>
-            @else
-            N/A
-            @endif
-        </td>
+    <!-- Table Card -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
 
-        <td>
-            @if($i->profile_image)
-            <img src="{{ asset('storage/' . $i->profile_image) }}"
-                width="80"
-                height="60">
-            @else
-            No Image
-            @endif
-        </td>
+            <div class="table-responsive">
 
-        <td>
-            <a href="{{ route('infoEdit', $i->id) }}">
-                Edit
-            </a>
-        </td>
+                <table class="table table-hover align-middle mb-0">
 
-        <td>
-            <a href="{{ route('deleteInfo', $i->id) }}">
-                Delete
-            </a>
-        </td>
-    </tr>
-    @endforeach
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>Profile</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>About</th>
+                            <th>Links</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-</table>
+                    <tbody>
 
-<br><br>
+                        @foreach($data as $i)
+                        <tr>
 
-<a href="/infoForm">
-    New Personal Info
-</a>
+                            <!-- Profile -->
+                            <td class="text-center">
+                                @if($i->profile_image)
+                                <img src="{{ asset('storage/' . $i->profile_image) }}"
+                                    class="rounded-circle"
+                                    width="50"
+                                    height="50"
+                                    style="object-fit: cover;">
+                                @else
+                                <span class="text-muted">No Image</span>
+                                @endif
+                            </td>
+
+                            <!-- Name -->
+                            <td>
+                                <strong>{{ $i->name }}</strong><br>
+                                <small class="text-muted">{{ $i->tagline }}</small>
+                            </td>
+
+                            <!-- Contact -->
+                            <td style="white-space: normal;">
+                                <div>{{ $i->email }}</div>
+                                <div class="text-muted small">{{ $i->phone }}</div>
+                                <div class="text-muted small">{{ $i->location }}</div>
+                            </td>
+
+                            <!-- About -->
+                            <td style="max-width: 250px; white-space: normal;">
+                                {{ Str::limit($i->about_me, 80) }}
+                            </td>
+
+                            <!-- Links -->
+                            <td style="white-space: normal;">
+                                @if($i->github_url)
+                                <a href="{{ $i->github_url }}" target="_blank" class="d-block text-decoration-none">
+                                    GitHub
+                                </a>
+                                @endif
+
+                                @if($i->linkedin_url)
+                                <a href="{{ $i->linkedin_url }}" target="_blank" class="d-block text-decoration-none">
+                                    LinkedIn
+                                </a>
+                                @endif
+                            </td>
+
+                            <!-- Actions -->
+                            <td class="text-center">
+                                <a href="{{ route('infoEdit', $i->id) }}" class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <a href="{{ route('deleteInfo', $i->id) }}"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure?')">
+                                    Delete
+                                </a>
+                            </td>
+
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
 
 @endsection

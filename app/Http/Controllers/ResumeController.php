@@ -15,7 +15,7 @@ class ResumeController extends Controller
 
 
 
-        $info = Personal_info::first();
+        $info = Personal_info::get();
 
 
         return view('Pages.resume', [

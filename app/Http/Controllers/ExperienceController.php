@@ -10,7 +10,7 @@ class ExperienceController extends Controller
 {
     function show()
     {
-        return view('Admin_Pages.Experience', ['data' => Experience::all()]);
+        return view('Admin_Pages.experience', ['data' => Experience::all()]);
     }
 
     function edit($id)

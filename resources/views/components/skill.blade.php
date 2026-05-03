@@ -1,4 +1,4 @@
-<section id="skills" class="px-10 py-16">
+<section id="skills" class="px-4 md:px-10 py-10 md:py-16">
     <h3 class="text-3xl font-bold text-center mb-10">Skills</h3>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">

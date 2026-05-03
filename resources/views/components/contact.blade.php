@@ -1,8 +1,8 @@
-<section id="contact" class="px-10 py-16 bg-gray-900">
+<section id="contact" class="px-4 md:px-10 py-10 md:py-16">
 
     <h3 class="text-3xl font-bold text-center mb-10">Contact Me</h3>
 
-    <div class="max-w-5xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-8 grid md:grid-cols-2 gap-8">
+  <div class="max-w-5xl mx-auto bg-gray-800 rounded-2xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
 
     
         <div class="flex flex-col justify-center space-y-6">

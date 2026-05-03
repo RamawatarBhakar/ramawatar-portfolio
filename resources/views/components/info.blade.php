@@ -1,4 +1,4 @@
-<section id="about" class="px-10 py-16 bg-gray-800">
+<section id="about" class="px-4 md:px-10 py-10 md:py-16">
     <h3 class="text-3xl font-bold text-center mb-8">About Me</h3>
 
     @foreach($personalInfos as $info)

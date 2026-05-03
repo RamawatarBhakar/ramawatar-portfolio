@@ -1,4 +1,4 @@
-<section id="education" class="px-10 py-16 bg-gray-800">
+<section id="education" class="px-4 md:px-10 py-10 md:py-16">
     <h3 class="text-3xl font-bold text-center mb-10">Education</h3>
 
     <div class="max-w-4xl mx-auto space-y-6">
