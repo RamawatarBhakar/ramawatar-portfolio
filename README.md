@@ -18,7 +18,7 @@ A dynamic portfolio website built using Laravel, PHP, Tailwind CSS, and MySQL.
 
 ## 🔗 Live Demo
 
-[https://your-live-link](https://ramawatar-portfolio.42web.io/)
+(https://ramawatar-portfolio.42web.io/)
 
 ### 🖥️ Portfolio UI
 <img width="1919" height="875" alt="image" src="https://github.com/user-attachments/assets/af26fea8-f0a0-4bc8-ab9e-49d9e9a903e3" />
