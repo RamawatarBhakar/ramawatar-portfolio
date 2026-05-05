@@ -1,25 +1,47 @@
-<section id="about" class="px-4 md:px-10 py-10 md:py-16">
-    <h3 class="text-3xl font-bold text-center mb-8">About Me</h3>
+<section id="about" class="px-4 md:px-10 py-12 md:py-16 bg-gray-900">
+
+    <!-- Heading -->
+    <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-white">
+            👋 About Me
+        </h2>
+        <p class="text-gray-400 mt-2 text-sm">
+            Who I am beyond the code
+        </p>
+    </div>
 
     @foreach($personalInfos as $info)
-    <div class="flex flex-col md:flex-row items-center gap-8 max-w-5xl mx-auto">
 
-        <!-- Image -->
-        <!-- <div class="w-56 h-56">
-            <img src="{{ asset('storage/' . $info->profile_image) }}"
-                class="rounded-full border-4 border-blue-400 w-full h-full object-cover">
-        </div> -->
+    <div class="max-w-3xl mx-auto">
 
-        <!-- Content -->
-        <div>
-            <!-- <h2 class="text-2xl font-bold">{{ $info->name }}</h2>
-            <p class="text-blue-400">{{ $info->tagline }}</p> -->
+        <div class="bg-gray-800/70 border border-gray-700 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-blue-500/20 transition duration-300">
 
-            <p class="text-gray-300 mt-4">
+            <!-- About Text -->
+            <p class="text-gray-300 text-sm md:text-base leading-relaxed">
                 {{ $info->about_me }}
             </p>
+
+            <!-- Highlights -->
+            <div class="mt-5 flex flex-wrap gap-3">
+
+                <span class="text-xs border border-gray-600 px-3 py-1 rounded-full text-gray-400">
+                    💻 Web Development
+                </span>
+
+                <span class="text-xs border border-gray-600 px-3 py-1 rounded-full text-gray-400">
+                    ⚡ Problem Solving
+                </span>
+
+                <span class="text-xs border border-gray-600 px-3 py-1 rounded-full text-gray-400">
+                    🚀 Always Learning
+                </span>
+
+            </div>
+
         </div>
 
     </div>
+
     @endforeach
+
 </section>

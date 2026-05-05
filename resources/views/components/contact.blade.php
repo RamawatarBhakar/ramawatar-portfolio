@@ -1,86 +1,91 @@
-<section id="contact" class="px-4 md:px-10 py-10 md:py-16">
+<section id="contact" class="px-4 md:px-10 py-12 md:py-16 bg-gray-900">
 
-    <h3 class="text-3xl font-bold text-center mb-10">Contact Me</h3>
+    <!-- Heading -->
+    <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-white">
+            📬 Contact Me
+        </h2>
+        <p class="text-gray-400 mt-2">
+            Let’s build something cool together 🚀
+        </p>
+    </div>
 
-  <div class="max-w-5xl mx-auto bg-gray-800 rounded-2xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Card -->
+    <div class="max-w-5xl mx-auto bg-gray-800/70 border border-gray-700 rounded-2xl p-6 md:p-8 shadow-lg backdrop-blur-md">
 
-    
-        <div class="flex flex-col justify-center space-y-6">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
 
-            <div>
-                <h4 class="text-xl font-semibold text-blue-400 mb-2">Get in Touch</h4>
-                <p class="text-gray-300 text-sm">
-                    Feel free to contact me for projects, collaborations, or any queries.
-                </p>
-            </div>
-
+            <!-- LEFT -->
             <div class="space-y-4">
 
-              
-                <a href="mailto:{{ $personalInfo->email }}"
-                    class="flex items-center gap-4 p-4 bg-gray-900 rounded-xl hover:bg-gray-700 transition">
+                <h3 class="text-xl font-semibold text-blue-400">
+                    Get in Touch 🤝
+                </h3>
 
-                    <i class="fas fa-envelope text-blue-400 text-xl"></i>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Got an idea? A project? Or just want to say hi?
+                    I don’t bite... unless it’s bad code 😄
+                </p>
 
-                    <div>
-                        <p class="text-sm text-gray-400">Email</p>
-                        <p class="text-white text-sm">{{ $personalInfo->email }}</p>
+                <!-- Info Cards -->
+                <div class="space-y-3">
+
+                    <div class="flex items-center gap-3 p-3 bg-gray-900 rounded-lg hover:bg-gray-700 transition cursor-pointer">
+                        <i class="fas fa-envelope text-blue-400"></i>
+                        <span class="text-gray-300 text-sm">{{ $personalInfo->email ?? 'your@email.com' }}</span>
                     </div>
-                </a>
 
-         
-                <a href="{{ $personalInfo->github_url }}" target="_blank"
-                    class="flex items-center gap-4 p-4 bg-gray-900 rounded-xl hover:bg-gray-700 transition">
-
-                    <i class="fab fa-github text-white text-xl"></i>
-
-                    <div>
-                        <p class="text-sm text-gray-400">GitHub</p>
-                        <p class="text-white text-sm">View Profile</p>
+                    <div class="flex items-center gap-3 p-3 bg-gray-900 rounded-lg hover:bg-gray-700 transition cursor-pointer">
+                        <i class="fab fa-github text-white"></i>
+                        <a href="{{ $personalInfo->github_url ?? '#' }}" target="_blank" class="text-gray-300 text-sm hover:underline">
+                            View GitHub
+                        </a>
                     </div>
-                </a>
 
-                <a href="{{ $personalInfo->linkedin_url }}" target="_blank"
-                    class="flex items-center gap-4 p-4 bg-gray-900 rounded-xl hover:bg-gray-700 transition">
-
-                    <i class="fab fa-linkedin text-blue-500 text-xl"></i>
-
-                    <div>
-                        <p class="text-sm text-gray-400">LinkedIn</p>
-                        <p class="text-white text-sm">Connect with me</p>
+                    <div class="flex items-center gap-3 p-3 bg-gray-900 rounded-lg hover:bg-gray-700 transition cursor-pointer">
+                        <i class="fab fa-linkedin text-blue-500"></i>
+                        <a href="{{ $personalInfo->linkedin_url ?? '#' }}" target="_blank" class="text-gray-300 text-sm hover:underline">
+                            Connect on LinkedIn
+                        </a>
                     </div>
-                </a>
+
+                </div>
 
             </div>
 
-        </div>
+            <!-- RIGHT (FORM) -->
+            <div>
 
-     
-        <div>
+                @if(session('success'))
+                <div class="mb-4 text-green-400 text-sm">
+                    ✅ Message sent successfully!
+                </div>
+                @endif
 
-     
-            @if(session('success'))
-            <p class="text-green-400 mb-4">{{ session('success') }}</p>
-            @endif
+                <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
+                    @csrf
 
-            <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
-                @csrf
+                    <!-- Name -->
+                    <input type="text" name="name" placeholder="Your Name"
+                        class="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 text-white focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition">
 
-                <input type="text" name="name" placeholder="Your Name"
-                    class="w-full p-3 rounded bg-gray-900 border border-gray-600 focus:outline-none focus:border-blue-400">
+                    <!-- Email -->
+                    <input type="email" name="email" placeholder="Your Email"
+                        class="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 text-white focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition">
 
-                <input type="email" name="email" placeholder="Your Email"
-                    class="w-full p-3 rounded bg-gray-900 border border-gray-600 focus:outline-none focus:border-blue-400">
+                    <!-- Message -->
+                    <textarea name="message" placeholder="Your Message 😄"
+                        class="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 text-white h-32 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition"></textarea>
 
-                <textarea name="message" placeholder="Your Message"
-                    class="w-full p-3 rounded bg-gray-900 border border-gray-600 h-32 focus:outline-none focus:border-blue-400"></textarea>
+                    <!-- Button -->
+                    <button type="submit"
+                        class="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 hover:scale-[1.02] active:scale-95 transition duration-200 shadow-md">
+                        🚀 Send Message
+                    </button>
 
-                <button type="submit"
-                    class="w-full px-6 py-3 bg-blue-500 rounded hover:bg-blue-600 transition">
-                    Send Message
-                </button>
+                </form>
 
-            </form>
+            </div>
 
         </div>
 
